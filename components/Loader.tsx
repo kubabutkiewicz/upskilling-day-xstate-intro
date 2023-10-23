@@ -1,13 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { inspect } from "react-native-flipper-xstate";
+import { useSelector } from "@xstate/react";
 import { useAuthContext } from "../context/AuthContext";
-import { useActor, useSelector } from "@xstate/react";
 
-if (__DEV__) {
-  inspect();
-}
 const selector = (state) => {
   return (
     state.matches("checkingToken") ||
@@ -15,7 +10,8 @@ const selector = (state) => {
     state.matches("unauthenticating")
   );
 };
-const Page = () => {
+
+const Loader = ({ children }: { children: React.ReactNode }) => {
   const { authService } = useAuthContext();
   const isLoading = useSelector(authService, selector);
   if (isLoading) {
@@ -27,12 +23,7 @@ const Page = () => {
       </SafeAreaView>
     );
   }
-
-  return (
-    <View>
-      <Text>Page</Text>
-    </View>
-  );
+  return <View>{children}</View>;
 };
 
-export default Page;
+export default Loader;

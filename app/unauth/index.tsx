@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../context/AuthContext";
@@ -10,10 +10,10 @@ const Page = () => {
   };
   return (
     <SafeAreaView>
-      <View>
+      <View style={styles.container}>
         <Text>Unathenticated</Text>
-        <Pressable onPress={login}>
-          <Text>Login</Text>
+        <Pressable style={styles.pressable} onPress={login}>
+          <Text style={styles.text}>Login</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -21,3 +21,18 @@ const Page = () => {
 };
 
 export default Page;
+
+const styles = StyleSheet.create({
+  pressable: {
+    backgroundColor: "#9381FF",
+    padding: 10,
+    borderRadius: 10,
+  },
+  text: {
+    color: "white",
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
